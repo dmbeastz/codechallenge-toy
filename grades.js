@@ -1,9 +1,9 @@
 // Import the 'prompt-sync' module to get user input
-let prompt = require ('prompt-sync')();
+const prompt = require ('prompt-sync')();
 // Prompt the user to enter their marks
-let input = prompt ('Enter marks')
+const input = prompt ('Enter marks')
 // Convert the entered marks to a floating-point number
-let enteredmarks= parseFloat (input)
+const enteredmarks= parseFloat (input)
 
 // Define a function called 'marks' that calculates the grade based on the marks
 function marks (o) {

@@ -1,63 +1,71 @@
 // Import the 'prompt-sync' library to take user input.
-let prompt = require ('prompt-sync')();
+const prompt = require ('prompt-sync')();
 // Prompt the user to input their salary and store it as a string.
-let input = prompt('input salary: ')
+const input = prompt('Enter the salary: ')
 // Convert the input string to a floating-point number.
-let salary = parseFloat(input)
+const salary = parseFloat(input)
 
 
 // Define a constant 'pay' equal to the salary.
-const pay = salary  ;
-// Define a function 'netTax' to calculate the income tax based on salary.
-function netTax () {
+let pay = salary  ;
+// Define a function 'incomeTax' to calculate the income tax based on salary.
+function calculateIncomeTax(salary) {
 
   
-if (pay <= 24000) return (pay * 0.1) 
-else if (24001<= pay  && pay <= 32333) return (pay * 0.25)
-else if (32334<= pay && pay <=500000 ) return (pay * 0.3)
-else if (500001 <= pay && pay <=800000) return (pay * 0.325)
-else if (pay > 800000) return (pay * 0.35) 
+if (salary <= 24000) 
+return (pay * 0.1) 
+if (24001<= salary  && salary <= 32333) 
+return (pay * 0.25)
+if (32334<= salary && salary <=500000 ) 
+return (salary* 0.3)
+if (500001 <= salary && salary <=800000) 
+return (salary * 0.325)
+if (salary > 800000) 
+return (salary * 0.35) 
 }
 
 // Print the calculated net tax.
-console.log (("Net tax: ")+(netTax(salary)))
+console.log (("Income tax: ")+(calculateIncomeTax(salary)))
 // Define a function 'nhif' to calculate National Hospital Insurance Fund (NHIF) deductions.
-function nhif () { 
-  
-    if (pay < 5999) return 150
-    if (6000 <= pay && pay <=7999) return 300
-    if (8000 <= pay && pay <= 11999) return 400
-    if (12000 <= pay && pay <= 14999) return 500
-    if (15000 <= pay && pay <= 19999) return 600
-    if (20000 <= pay && pay <= 24999) return 750
-    if (25000 <= pay && pay <= 29999) return 850
-    if (30000 <= pay && pay <= 34999) return 900
-    if (35000 <= pay && pay <= 39999) return 950
-    if (40000 <= pay && pay <= 44999) return 1000
-    if (45000 <= pay && pay <= 49999) return 1100
-    if (50000 <= pay && pay <= 59999) return 1200
-    if (60000 <= pay && pay <= 69999) return 1300
-    if (70000 <= pay && pay <= 79000) return 1400
-    if (80000 <= pay && pay <= 89999) return 1500
-    if (100000 <= pay && pay <= 99999) return 1600
-    else if (pay > 100000) return 1700
+function calculateNHIF (salary) { 
+    const NHIFrates = [
+        { min: 0, max: 5999, rate: 150},
+        { min: 6000, max: 7999, rate: 300},
+        { min: 8000, max: 11999, rate: 400},
+        { min: 12000, max: 14999, rate: 500},
+        { min: 15000, max: 19999, rate: 600},
+        { min: 20000, max: 24999, rate: 750},
+        { min: 25000, max: 29999, rate: 850},
+        { min: 30000, max: 34999, rate: 900},
+        { min: 35000, max: 39999, rate: 950},
+        { min: 40000, max: 44999, rate: 1000},
+        { min: 45000, max: 49999, rate: 1100},
+        { min: 50000, max: 59999, rate: 1200},
+        { min: 60000, max: 69999, rate: 1300},
+        { min: 70000, max: 79000, rate: 1400},
+        { min: 80000, max: 89999, rate: 1500},
+        { min: 90000, max: 99999, rate: 1600},
+        { min: 100000, max: Infinity, rate: 1700}
 
-}
+    ];
+  for (const rate of NHIFrates) {
+     ( salary => rate.min && salary <= rate.max); {
+        return rate.rate
+    }
+  }
+  return 1700; //Default rate for salaries above 100,00
+    }
+    function calculatePension(salary) {
+        return salary* 0.06;
+    }
+const incomeTax = calculateIncomeTax(salary);
+const nhifDeduction = calculateNHIF(salary);
+const pensionDeduction = calculatePension(salary);
+const netIncome = salary - incomeTax - nhifDeduction - pensionDeduction;
 
-// Print the calculated NHIF deduction.
-console.log(("NHIF: ") + (nhif(salary)))
-// Define a function 'nssf' to calculate National Social Security Fund (NSSF) deductions.
-function nssf() { 
-// Calculate the pension as 6% of the salary and return it.
-    const pension = (pay * 0.06)
-    return pension
+console.log(`Net tax: ${incomeTax}`);
+console.log(`NHIF: ${nhifDeduction}`);
+console.log(`Pension: ${pensionDeduction}`);
+console.log(`Net Income: ${netIncome}`);
+console.log ()
 
-}
-// Print the calculated pension (NSSF) deduction.
-console.log (("Pension: ") +(nssf()))
-
-// Calculate and print the net income, which is the salary minus the sum of netTax, nhif, and nssf.
-console.log (("Net Income: ") + (salary - (netTax() + nhif() + nssf())))
-
-return  + (salary - (netTax()+ nhif() +nssf()))
-// The 'return' statement appears to be returning a value, but it's not assigned to a variable or used elsewhere in the code.

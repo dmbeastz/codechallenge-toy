@@ -1,9 +1,9 @@
 //Import the 'prompt-sync' module to get the user input
-let prompt = require('prompt-sync')();
+const prompt = require('prompt-sync')();
 //Convert the entered their speed
-let input = prompt ('Enter speed')
+const input = prompt ('Enter speed')
 //Convert the entered speed to a floating-point number
-let enteredspeed= parseFloat(input)
+const enteredspeed= parseFloat(input)
 //Define the speed limit
 const limit = 70
 //Define a function to check the speed and calculate points
